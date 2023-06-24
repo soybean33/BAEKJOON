@@ -8,9 +8,9 @@ struct Coordinate{	// 좌표
 };
 
 struct Round{	// 라운드
-	Coordinate attack;	// 공격수의 위치
-	char attackDir;	// 공격수의 방향 -> E: 동, W: 서, S: 남, N: 북
-	Coordinate defence;	// 수비수의 위치
+	Coordinate attack;	// 공격 위치
+	char attackDir;	// 공격 방향 -> E: 동, W: 서, S: 남, N: 북
+	Coordinate defence;	// 수비 위치
 };
 
 int N, M, R;	// N: 행의 개수, M: 열의 개수, R: 라운드 횟수
@@ -47,11 +47,15 @@ void solution(){
 			Coordinate curCoordi = q.front();	// curCoordi: 넘어질 도미노의 좌표
 			q.pop();
 
-			state[curCoordi.y][curCoordi.x] = false;	// 도미노 넘어짐
-			ans++;	// 공격수 점수 증가
+			if(!state[curCoordi.y][curCoordi.x]) continue;	// 이미 도미노가 넘어졌다면 continue
 
-			for(int i = 0; i < MAP[curCoordi.y][curCoordi.x] - 1; i++){
-				Coordinate nextCoordi = {curCoordi.y + dirY[dir], curCoordi.x + dirX[dir]};	// 연쇄적으로 넘어질 도미노의 위치
+			state[curCoordi.y][curCoordi.x] = false;	// 도미노 넘어짐
+			ans++;
+
+			int len =  MAP[curCoordi.y][curCoordi.x] - 1;	// len: 넘어지는 도미노의 길이 -> 연속해서 넘어질 도미노의 갯수
+
+			for(int i = 0; i < len; i++){
+				Coordinate nextCoordi = {curCoordi.y + dirY[dir], curCoordi.x + dirX[dir]};	// nextCoordi: 연쇄적으로 넘어질 도미노의 위치
 				curCoordi = nextCoordi;
 
 				if(nextCoordi.y < 0 || nextCoordi.x < 0 || nextCoordi.y >= N || nextCoordi.x >= M) continue;	// 범위 벗어나면 continue
