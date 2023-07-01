@@ -50,7 +50,7 @@ void input(){
 	for(int i=0; i<W; i++){
 		int from, to, time;	// from: 시작 지점, to: 도착 지점, time: 소요 시간
 		std::cin >> from >> to >> time;
-		v[from - 1].push_back({to - 1, -time});
+		v[from - 1].push_back({to - 1, -time});	// 웜홀은 단방향 연결
 	}
 
 	return;
