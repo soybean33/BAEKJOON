@@ -17,7 +17,7 @@ struct Cmp{	// 문제 번호 오름차순 정렬 우선 순위 큐
 
 void solution(){
 
-	std::priority_queue<int, std::vector<int>, Cmp> q;	// q[i]: i 번째로 풀 문제 번호
+	std::priority_queue<int, std::vector<int>, Cmp> q;	// q[i]: i 번째로 풀 문제 번호 -> 문제 번호가 작은 것이 먼저 나오게 됨
 
 	for(int i=1; i<=N; i++){
 		if(!inDegree[i]) q.push(i);	// 먼저 풀어야 할 문제가 없으면 우선 순위 큐에 넣음
@@ -30,8 +30,8 @@ void solution(){
 		ans.push_back(cur);	// 문제 리스트에 넣음
 
 		for(int i=0; i<order[cur].size(); i++){
-			int next = order[cur][i];	// next: 다음에 풀어야할 문제의 번호
-			inDegree[next]--;	// 앞써 풀어야하는 문제를 풀었으므로 -1
+			int next = order[cur][i];	// next: cur문제 다음에 풀 수 있는 문제의 번호
+			inDegree[next]--;	// 앞써 풀어야하는 cur 문제를 풀었으므로 -1
 			if(!inDegree[next]) q.push(next);	// 먼저 풀어야할 문제가 없으면 우선 순위 큐에 넣음
 		}
 	}
@@ -48,11 +48,11 @@ void input(){
 	order.assign(N+1, std::vector<int>(0,0));
 
 	for(int i=0; i<M; i++){
-		int A, B;	// A, B: B 문제보다 A 문제를 먼저 푸는 것이 좋음
+		int A, B;	// A, B: 문제 번호, B 문제보다 A 문제를 먼저 푸는 것이 좋음
 		std::cin >> A >> B;
 
-		order[A].push_back(B);
-		inDegree[B]++;
+		order[A].push_back(B);	// A 문제 다음에 B 문제를 풀어야함
+		inDegree[B]++;	// B 문제를 풀기 위한 문제가 +1
 	}
 
 	return;
