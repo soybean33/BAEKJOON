@@ -3,12 +3,14 @@
 #include <string>
 #include <queue>
 
-// 방향 백터
-int dirY[4] = {0, 1, 0, -1};
-int dirX[4] = {1, 0, -1, 0};
+
 
 struct Coordinate{	// 좌표
 	int y, x;	// y, x: 좌표
+
+	// 방향 백터
+	inline static int dirY[4] = {0, 1, 0, -1};
+	inline static int dirX[4] = {1, 0, -1, 0};
 
 	static Coordinate nextCoordi(Coordinate curr, int dir) {	// curr: 현재 좌표, dir: 이동할 방향
 		return {curr.y + dirY[dir], curr.x + dirX[dir]};	// 다음 위치 return
