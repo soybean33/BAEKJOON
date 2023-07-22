@@ -49,7 +49,7 @@ void solution(){
 		// 계산한 최소 유량을 사용하여 흐르는 유량 갱신
 		for(int i=end; i!=start; i=prev[i]){
 			flow[prev[i]][i] += minFlow;
-			flow[i][prev[i]] += minFlow;
+			flow[i][prev[i]] -= minFlow;
 		}
 
 		ans += minFlow;	// 총 유량 증가
