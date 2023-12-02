@@ -5,28 +5,29 @@
 
 constexpr int INF = 21e8;
 
-int N;
-std::vector<std::vector<int>> MAP;
+int N;	// N: 사람의 수
+std::vector<std::vector<int>> MAP;	// MAP[i][j]: i 번 사람과 j 번 사람이 같은 팀에 속했을 때, 팀에 더해지는 능력치
 
-std::vector<int> visited;
+std::vector<int> visited;	// visited[i]: i 사람의 소속 팀 정보
 
-int answer = INF;
+int answer = INF;	// answer: 스타트 팀과 링크 팀의 능력치의 차이의 최솟값
 
-void Dfs(int depth) {
+void Dfs(int depth) {	// depth: 팀을 정할 사람의 번호
 
-	if (depth == N) {
+	if (depth == N) {	// 모든 사람의 팀이 정해진 경우
 
+		// 스타트 팀과 링크 팀의 능력치
 		int team1 = 0;
 		int team2 = 0;
 
 		for (int i = 0; i < N - 1; ++i) {
 			for (int j = i + 1; j < N; ++j) {
-				if (visited[i] && visited[j]) { team1 += MAP[i][j] + MAP[j][i]; }
-				else if (!visited[i] && !visited[j]) { team2 += MAP[i][j] + MAP[j][i]; }
+				if (visited[i] && visited[j]) { team1 += MAP[i][j] + MAP[j][i]; }	// true 팀인 경우
+				else if (!visited[i] && !visited[j]) { team2 += MAP[i][j] + MAP[j][i]; }	// false 팀인 경우
 			}
 		}
 	
-		answer = std::min(answer, std::abs(team1 - team2));
+		answer = std::min(answer, std::abs(team1 - team2));	// 팀의 능력치의 최솟값
 
 		return;
 	}
@@ -65,6 +66,10 @@ void Input() {
 }
 
 int main() {
+
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
 
 	Input();
 
